@@ -5,7 +5,8 @@
 - dkim
 
 ### Material
-- CS231n 2016 winter
+- [CS231n 2016 winter](https://www.youtube.com/playlist?list=PLLvH2FwAQhnpj1WEB-jHmPuUeQ8mX-XXG)
+- [Github of CS231n](https://github.com/cs231n)
 
 ### Plan
 - every thursday night, using facetime?!(determined not yet)
