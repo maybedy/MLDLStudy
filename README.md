@@ -1,12 +1,14 @@
 # MLDLStudy
 
 ### Member
-- YDGongboy
+- [YDGongboy](https://infinite-springs-66529.herokuapp.com/)
 - dkim
 
 ### Material
 - [CS231n 2016 winter](https://www.youtube.com/playlist?list=PLLvH2FwAQhnpj1WEB-jHmPuUeQ8mX-XXG)
 - [Github of CS231n](https://github.com/cs231n)
+- [Syllabus of CS231n](http://cs231n.stanford.edu/syllabus.html)
+- [DeepLearningBook](http://www.deeplearningbook.org/)
 
 ### Plan
 - Understand and implement CNN & RNN(LSTM) on tensorflow
