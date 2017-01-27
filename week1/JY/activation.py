@@ -8,9 +8,9 @@ def identity_function(x):
 def leaky_relu(x):
     return np.max(0.1*x, x)
 
-
+# TODO test
 def relu(x):
-    return np.max(0, x)
+    return np.max(0, x) + 1
 
 
 def sigmoid(x):
