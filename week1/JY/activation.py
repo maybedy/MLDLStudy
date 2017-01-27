@@ -10,7 +10,7 @@ def leaky_relu(x):
 
 
 def relu(x):
-    return np.max(0, x)
+    return np.max(0, x) + 2
 
 
 def sigmoid(x):
