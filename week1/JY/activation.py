@@ -22,7 +22,7 @@ def tanh(x):
 
 
 def step_function(x):
-    np.array(x > 0, dtype=np.int)
+    return np.array(x > 0, dtype=np.int)
 
 
 def softmax(x):
