@@ -5,14 +5,16 @@ from dataset.mnist import load_mnist
 from two_layer_net import TwoLayerNet
 from optimizers import *
 
+import matplotlib.pyplot as plt
+
 
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
-network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10, batch_norm=True, weight_decay=0.01)
+network = TwoLayerNet(input_size=784, hidden_size=100, output_size=10, batch_norm=True, weight_decay=0.0, Prelu=True)
 
-iters_num = 12000
+iters_num = 6000
 train_size = x_train.shape[0]
 batch_size = 100
-learning_rate = 1
+learning_rate = 0.001
 
 train_loss_list = []
 train_acc_list = []
@@ -39,4 +41,3 @@ for i in range(iters_num+1):
         test_acc_list.append(test_acc)
         print("epoch %d" %(i/iter_per_epoch))
         print(i, loss, train_acc, test_acc)
-

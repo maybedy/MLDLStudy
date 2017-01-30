@@ -9,23 +9,30 @@ from collections import OrderedDict
 
 
 class TwoLayerNet:
-    def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01, batch_norm=True, weight_decay=0.0):
+    def __init__(self, input_size, hidden_size, output_size, batch_norm=True, weight_decay=0.0, Prelu=False):
+        self.Prelu = Prelu
         self.weight_decay = weight_decay
         self.batch_norm = batch_norm
         self.params = {}
-        self.params['W1'] = np.random.randn(input_size, hidden_size) * weight_init_std
+        self.params['W1'] = np.random.randn(input_size, hidden_size) / np.sqrt(input_size/2.0)
         self.params['b1'] = np.zeros(hidden_size)
         if self.batch_norm:
             self.params['gamma'] = np.random.random(hidden_size)
             self.params['beta'] = np.zeros(hidden_size)
-        self.params['W2'] = np.random.randn(hidden_size, output_size) * weight_init_std
+        if self.Prelu:
+            self.params['alpha'] = np.repeat(0.25, hidden_size)
+        self.params['W2'] = np.random.randn(hidden_size, output_size) / np.sqrt(hidden_size/2.0)
         self.params['b2'] = np.zeros(output_size)
 
         self.layers = OrderedDict()
         self.layers['Affine1'] = Affine(self.params['W1'], self.params['b1'])
         if self.batch_norm:
             self.layers['BatchNorm1'] = BatchNormalization(gamma=self.params['gamma'], beta=self.params['beta'])
-        self.layers['Relu1'] = Relu()
+            print()
+        if self.Prelu:
+            self.layers['PRelu1'] = PRelu(alpha=self.params['alpha'])
+        else:
+            self.layers['Relu1'] = Relu()
         self.layers['Affine2'] = Affine(self.params['W2'], self.params['b2'])
 
         self.lastLayer = SoftmaxWithLoss()
@@ -72,5 +79,6 @@ class TwoLayerNet:
             grads['beta'] = self.layers['BatchNorm1'].dbeta
         grads['W2'] = self.layers['Affine2'].dW
         grads['b2'] = self.layers['Affine2'].db
-
+        if self.Prelu:
+            grads['alpha'] = self.layers['PRelu1'].dalpha
         return grads

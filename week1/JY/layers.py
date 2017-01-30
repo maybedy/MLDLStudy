@@ -158,3 +158,31 @@ class BatchNormalization:
         self.dbeta = dbeta
 
         return dx
+
+
+class PRelu:
+    def __init__(self, alpha):
+        self.alpha = alpha
+        self.dalpha = None
+        self.x = None
+        self.mask = None
+
+    def forward(self, x):
+        # negative alpha는 제거
+        self.alpha[self.alpha < 0] = 0.0
+        self.x = x
+        self.mask = (x > 0)  # 여기서 미리 masking 해놔야 backward 에서 써먹을 수가 있음!!
+        out = np.maximum(0, x) + self.alpha * np.minimum(0, x)
+        return out
+
+    def backward(self, dout):
+        dalpha = self.x.copy()
+        dalpha[self.mask] = 0.0
+        self.dalpha = (dout * dalpha).sum(axis=0)
+
+        # alpha를 batch size만큼 복붙
+        dx = np.tile(self.alpha, (self.x.shape[0], 1))
+        dx[self.mask] = 1.0
+        dx = dx * dout
+
+        return dx
