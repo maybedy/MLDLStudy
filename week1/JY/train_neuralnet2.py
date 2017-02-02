@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
-network = TwoLayerNet(input_size=784, hidden_size=100, output_size=10, batch_norm=True, weight_decay=0.0, Prelu=True)
+network = TwoLayerNet(input_size=784, hidden_size=100, output_size=10, batch_norm=True, weight_decay=0.0, Prelu=False)
 
 iters_num = 6000
 train_size = x_train.shape[0]
